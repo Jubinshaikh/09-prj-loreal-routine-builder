@@ -1,0 +1,5 @@
+name = "loreal-routine-worker"
+main = "worker/index.js"
+compatibility_date = "2026-04-17"
+
+# After deploy, use the worker route in script.js WORKER_URL
