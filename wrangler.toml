@@ -10,4 +10,4 @@ MODEL = "gpt-4.1-mini"
 ALLOWED_ORIGIN = "https://jubinshaikh.github.io"
 ENABLE_WEB_SEARCH = "false"
 
-# After deploy, put the worker URL in script.js WORKER_URL
+
