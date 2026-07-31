@@ -2,4 +2,12 @@ name = "loreal-routine-worker"
 main = "worker/index.js"
 compatibility_date = "2026-04-17"
 
-# After deploy, use the worker route in script.js WORKER_URL
+# Non-secret configuration. Deploying with wrangler pushes these values.
+# OPENAI_API_KEY is a secret and is NOT stored here — set it with:
+#   npx wrangler secret put OPENAI_API_KEY
+[vars]
+MODEL = "gpt-4.1-mini"
+ALLOWED_ORIGIN = "https://jubinshaikh.github.io"
+ENABLE_WEB_SEARCH = "false"
+
+# After deploy, put the worker URL in script.js WORKER_URL
