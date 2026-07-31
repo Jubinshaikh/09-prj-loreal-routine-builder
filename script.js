@@ -455,11 +455,12 @@ async function requestChatReplyFromWorker(payload) {
     body: JSON.stringify(payload),
   });
 
-  if (!response.ok) {
-    throw new Error("Worker request failed");
-  }
+  /* Read the body first so we can show the Worker's real error text */
+  const data = await response.json().catch(() => ({}));
 
-  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.details || data.error || "Worker request failed");
+  }
 
   if (!data.message) {
     throw new Error("Worker response was missing message text");
@@ -492,9 +493,7 @@ async function sendChatMessage(rawUserMessage, requestType = "followup") {
       generatedRoutine = workerData.message;
     }
   } catch (error) {
-    addAssistantMessage(
-      "I could not respond right now. Please try again in a moment.",
-    );
+    addAssistantMessage(`I could not respond right now. (${error.message})`);
   } finally {
     isChatLoading = false;
     generateRoutineButton.disabled = false;
